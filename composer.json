@@ -1,9 +1,9 @@
 {
   "name": "norotaro/enumata-history",
-  "description": "Automatically record history of all transitions",
+  "description": "Automatically records all Enumata transitions",
   "type": "library",
   "require": {
-    "norotaro/enumata": "dev-support-history"
+    "norotaro/enumata": "^1.1"
   },
   "require-dev": {
     "pestphp/pest": "^2.12",
@@ -26,6 +26,9 @@
       "email": "nelson.otazo@gmail.com"
     }
   ],
+  "scripts": {
+    "test": "./vendor/bin/pest"
+  },
   "config": {
     "allow-plugins": {
       "pestphp/pest-plugin": true
