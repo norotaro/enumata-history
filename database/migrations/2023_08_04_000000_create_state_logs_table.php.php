@@ -11,7 +11,7 @@ return new class() extends Migration
      */
     public function up(): void
     {
-        Schema::create('enumata_state_history', function (Blueprint $table) {
+        Schema::create('enumata_state_logs', function (Blueprint $table) {
             $table->id();
             $table->morphs('model');
             $table->string('field');
@@ -26,6 +26,6 @@ return new class() extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('enumata_state_history');
+        Schema::dropIfExists('enumata_state_logs');
     }
 };

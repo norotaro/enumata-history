@@ -1,17 +1,17 @@
 <?php
 
-namespace Norotaro\EnumataHistory\Traits;
+namespace Norotaro\EnumataRecorder\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Norotaro\Enumata\Contracts\DefineStates;
-use Norotaro\EnumataHistory\Models\StateHistory;
+use Norotaro\EnumataRecorder\Models\StateHistory;
 use UnitEnum;
 
-trait HasStateHistory
+trait LogTransitions
 {
-    public static function bootHasStateHistory(): void
+    public static function bootLogTransitions(): void
     {
         //TODO check that HasStateMachines trait is implemented in the model
 
@@ -20,7 +20,7 @@ trait HasStateHistory
         self::updated([self::class, 'addStateHistory']);
     }
 
-    public function stateHistory(string $field = null): MorphMany
+    public function stateLogs(string $field = null): MorphMany
     {
         $query = $this->morphMany(StateHistory::class, 'model');
 
@@ -67,7 +67,7 @@ trait HasStateHistory
         }
 
         if (count($newHistory)) {
-            $model->stateHistory()->createMany($newHistory);
+            $model->stateLogs()->createMany($newHistory);
         }
     }
 }

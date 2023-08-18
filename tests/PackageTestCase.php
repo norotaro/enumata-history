@@ -1,11 +1,11 @@
 <?php
 
-namespace Norotaro\EnumataHistory\Tests;
+namespace Norotaro\EnumataRecorder\Tests;
 
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Javoscript\MacroableModels\MacroableModelsServiceProvider;
-use Norotaro\EnumataHistory\Providers\PackageServiceProvider;
+use Norotaro\EnumataRecorder\Providers\PackageServiceProvider;
 use Orchestra\Testbench\TestCase;
 
 class PackageTestCase extends TestCase

@@ -1,20 +1,20 @@
-# Enumata History
+# Enumata Recorder
 
-[![Latest Version](https://img.shields.io/packagist/v/norotaro/enumata-history.svg?label=release)](https://packagist.org/packages/norotaro/enumata-history)
-[![Tests](https://github.com/norotaro/enumata-history/actions/workflows/test.yaml/badge.svg)](https://github.com/norotaro/enumata-history/actions/workflows/test.yaml)
+[![Latest Version](https://img.shields.io/packagist/v/norotaro/enumata-recorder.svg?label=release)](https://packagist.org/packages/norotaro/enumata-recorder)
+[![Tests](https://github.com/norotaro/enumata-recorder/actions/workflows/test.yaml/badge.svg)](https://github.com/norotaro/enumata-recorder/actions/workflows/test.yaml)
 
 Automatically records all [Enumata](https://github.com/norotaro/enumata) transitions.
 
 ## Description
 
-This package allow you to automatically record history of all states a model with [Enumata](https://github.com/norotaro/enumata) may have and query this history to take specific actions accordingly.
+This package allow you to automatically record logs of all states a model with [Enumata](https://github.com/norotaro/enumata) may have and query this logs to take specific actions accordingly.
 
 ## Installation
 
 Install the package via Composer:
 
 ```bash
-composer require norotaro/enumata-history
+composer require norotaro/enumata-recorder
 ```
 Then run the migrations:
 
@@ -24,15 +24,15 @@ php artisan migrate
 
 ## Configuration
 
-In a model configured to use **Enumata** ([see documentation](https://github.com/norotaro/enumata#basic-usage)) we only need to add the `HasStateHistory` trait:
+In a model configured to use **Enumata** ([see documentation](https://github.com/norotaro/enumata#basic-usage)) we only need to add the `LogStates` trait:
 
 ```php
 use Norotaro\Enumata\Traits\HasStateMachines;
-use Norotaro\EnumataHistory\Traits\HasStateHistory;
+use Norotaro\EnumataRecorder\Traits\LogStates;
 
 class Order extends Model
 {
-    use HasStateMachines, HasStateHistory;
+    use HasStateMachines, LogStates;
 
     protected $casts = [
         'status' => OrderStatus::class,
@@ -40,23 +40,23 @@ class Order extends Model
 }
 ```
 
-That's it. Now all transitions will be recorded automatically using the `state_history` table that was created when installing the package.
+That's it. Now all transitions will be recorded automatically using the `enumata_state_logs` table that was created when installing the package.
 
-## Querying History
+## Querying Logs
 
 Get full history of transitioned states:
 
 ```php
-$order->stateHistory;
+$order->stateLogs;
 
 // or
 
-$order->stateHistory()->get();
+$order->stateLogs()->get();
 ```
-The stateHistory() method returns an Eloquent relationship that can be chained as any [Query Builder](https://laravel.com/docs/10.x/queries) to further down the results. You also have some scopes available.
+The stateLogs() method returns an Eloquent relationship that can be chained as any [Query Builder](https://laravel.com/docs/10.x/queries) to further down the results. You also have some scopes available.
 
 ```php
-$order->stateHistory()
+$order->stateLogs()
     ->from(OrderStatus::Pending)
     ->to(OrderStatus::Approved)
     ->where('created_at', '<', Carbon::yesterday())
@@ -68,12 +68,12 @@ $order->stateHistory()
 ### `from($state)`
 
 ```php
-$order->stateHistory()->from(OrderStatus::Pending)->get();
+$order->stateLogs()->from(OrderStatus::Pending)->get();
 ```
 ### `to($state)`
 
 ```php
-$order->stateHistory()->to(OrderStatus::Approved)->get();
+$order->stateLogs()->to(OrderStatus::Approved)->get();
 ```
 ### `forField($field)`
 
@@ -83,10 +83,11 @@ For example, having this model:
 
 ```php
 use Norotaro\Enumata\Traits\HasStateMachines;
+use Norotaro\EnumataRecorder\Traits\LogStates;
 
 class Order extends Model
 {
-    use HasStateMachines;
+    use HasStateMachines, LogStates;
 
     protected $casts = [
         'status'      => OrderStatus::class,
@@ -95,20 +96,20 @@ class Order extends Model
 }
 ```
 
-We can access the history for each field in this way:
+We can access the logs for each field in this way:
 
 ```php
-$order->stateHistory()->forField('status')->get();
+$order->stateLogs()->forField('status')->get();
 
-$order->stateHistory()->forField('fulfillment')->get();
+$order->stateLogs()->forField('fulfillment')->get();
 ```
 
-Alternatively we can pass a param to `stateHistory()` with the name of the field to get the same result:
+Alternatively we can pass a param to `stateLogs()` with the name of the field to get the same result:
 
 ```php
-$order->stateHistory('status')->get();
+$order->stateLogs('status')->get();
 
-$order->stateHistory('fulfillment')->get();
+$order->stateLogs('fulfillment')->get();
 ```
 
 ## Testing

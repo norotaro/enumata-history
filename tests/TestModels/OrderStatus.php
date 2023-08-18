@@ -1,6 +1,6 @@
 <?php
 
-namespace Norotaro\EnumataHistory\Tests\TestModels;
+namespace Norotaro\EnumataRecorder\Tests\TestModels;
 
 use Norotaro\Enumata\Contracts\DefineStates;
 

@@ -1,5 +1,5 @@
 {
-  "name": "norotaro/enumata-history",
+  "name": "norotaro/enumata-recorder",
   "description": "Automatically records all Enumata transitions",
   "type": "library",
   "require": {
@@ -12,12 +12,12 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Norotaro\\EnumataHistory\\": "src/"
+      "Norotaro\\EnumataRecorder\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Norotaro\\EnumataHistory\\Tests\\": "tests"
+      "Norotaro\\EnumataRecorder\\Tests\\": "tests"
     }
   },
   "authors": [

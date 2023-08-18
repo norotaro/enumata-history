@@ -1,14 +1,14 @@
 <?php
 
-namespace Norotaro\EnumataHistory\Tests\TestModels;
+namespace Norotaro\EnumataRecorder\Tests\TestModels;
 
 use Illuminate\Database\Eloquent\Model;
 use Norotaro\Enumata\Traits\HasStateMachines;
-use Norotaro\EnumataHistory\Traits\HasStateHistory;
+use Norotaro\EnumataRecorder\Traits\LogTransitions;
 
 class Order extends Model
 {
-    use HasStateMachines, HasStateHistory;
+    use HasStateMachines, LogTransitions;
 
     protected $casts = [
         'status' => OrderStatus::class,
