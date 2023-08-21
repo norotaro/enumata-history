@@ -24,15 +24,15 @@ php artisan migrate
 
 ## Configuration
 
-In a model configured to use **Enumata** ([see documentation](https://github.com/norotaro/enumata#basic-usage)) we only need to add the `LogStates` trait:
+In a model configured to use **Enumata** ([see documentation](https://github.com/norotaro/enumata#basic-usage)) we only need to add the `LogTransitions` trait:
 
 ```php
 use Norotaro\Enumata\Traits\HasStateMachines;
-use Norotaro\EnumataRecorder\Traits\LogStates;
+use Norotaro\EnumataRecorder\Traits\LogTransitions;
 
 class Order extends Model
 {
-    use HasStateMachines, LogStates;
+    use HasStateMachines, LogTransitions;
 
     protected $casts = [
         'status' => OrderStatus::class,
@@ -83,11 +83,11 @@ For example, having this model:
 
 ```php
 use Norotaro\Enumata\Traits\HasStateMachines;
-use Norotaro\EnumataRecorder\Traits\LogStates;
+use Norotaro\EnumataRecorder\Traits\LogTransitions;
 
 class Order extends Model
 {
-    use HasStateMachines, LogStates;
+    use HasStateMachines, LogTransitions;
 
     protected $casts = [
         'status'      => OrderStatus::class,
