@@ -2,11 +2,9 @@
 
 namespace Norotaro\EnumataRecorder\Traits;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Norotaro\Enumata\Contracts\DefineStates;
-use Norotaro\EnumataRecorder\Models\StateHistory;
+use Norotaro\EnumataRecorder\Models\StateLogs;
 use UnitEnum;
 
 trait LogTransitions
@@ -15,14 +13,14 @@ trait LogTransitions
     {
         //TODO check that HasStateMachines trait is implemented in the model
 
-        self::created([self::class, 'addStateHistory']);
+        self::created([self::class, 'addStateLogs']);
 
-        self::updated([self::class, 'addStateHistory']);
+        self::updated([self::class, 'addStateLogs']);
     }
 
     public function stateLogs(string $field = null): MorphMany
     {
-        $query = $this->morphMany(StateHistory::class, 'model');
+        $query = $this->morphMany(StateLogs::class, 'model');
 
         if ($field) {
             $query->forField($field);
@@ -31,22 +29,7 @@ trait LogTransitions
         return $query;
     }
 
-    public function scopeFrom(Builder $query, DefineStates&UnitEnum $state): void
-    {
-        $query->where('from', $state->name);
-    }
-
-    public function scopeTo(Builder $query, DefineStates&UnitEnum $state): void
-    {
-        $query->where('to', $state->name);
-    }
-
-    public function scopeForField(Builder $query, string $field): void
-    {
-        $query->where('field', $field);
-    }
-
-    public static function addStateHistory(Model $model)
+    public static function addStateLogs(Model $model)
     {
         $newHistory = [];
 
@@ -61,8 +44,8 @@ trait LogTransitions
 
             $newHistory[] = [
                 'field' => $stateMachine->getField(),
-                'from'  => $originalState?->name,
-                'to'    => $currentState->name
+                'from'  => $originalState,
+                'to'    => $currentState
             ];
         }
 

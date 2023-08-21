@@ -13,7 +13,7 @@ it('save log when the model is created', function () {
     expect($this->model->stateLogs->count())->toBe(1);
     expect($this->model->stateLogs->first()->field)->toBe('status');
     expect($this->model->stateLogs->first()->from)->toBeNull();
-    expect($this->model->stateLogs->first()->to)->toBe(OrderStatus::Default->name);
+    expect($this->model->stateLogs->first()->to)->toBe(OrderStatus::Default);
 });
 
 it('save logs when the model is updated', function () {
@@ -23,8 +23,8 @@ it('save logs when the model is updated', function () {
 
     expect($logs->count())->toBe(2);
     expect($logs->last()->field)->toBe('status');
-    expect($logs->last()->from)->toBe(OrderStatus::Default->name);
-    expect($logs->last()->to)->toBe(OrderStatus::Pending->name);
+    expect($logs->last()->from)->toBe(OrderStatus::Default);
+    expect($logs->last()->to)->toBe(OrderStatus::Pending);
 
     $this->model->end();
     // reload logs
@@ -32,8 +32,8 @@ it('save logs when the model is updated', function () {
 
     expect($logs->count())->toBe(3);
     expect($logs->last()->field)->toBe('status');
-    expect($logs->last()->from)->toBe(OrderStatus::Pending->name);
-    expect($logs->last()->to)->toBe(OrderStatus::Finished->name);
+    expect($logs->last()->from)->toBe(OrderStatus::Pending);
+    expect($logs->last()->to)->toBe(OrderStatus::Finished);
 });
 
 it('save logs when transitions are forced', function () {
