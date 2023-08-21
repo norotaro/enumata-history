@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Norotaro\Enumata\Contracts\DefineStates;
 use UnitEnum;
 
-class StateLogs extends Model
+class StateLog extends Model
 {
     protected $table = 'enumata_state_logs';
 
@@ -30,12 +30,12 @@ class StateLogs extends Model
         );
     }
 
-    public function scopeFrom(Builder $query, DefineStates&UnitEnum $state): void
+    public function scopeFromState(Builder $query, DefineStates&UnitEnum $state): void
     {
         $query->where('from', $state->name);
     }
 
-    public function scopeTo(Builder $query, DefineStates&UnitEnum $state): void
+    public function scopeToState(Builder $query, DefineStates&UnitEnum $state): void
     {
         $query->where('to', $state->name);
     }

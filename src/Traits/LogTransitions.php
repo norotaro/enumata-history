@@ -4,7 +4,7 @@ namespace Norotaro\EnumataRecorder\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Norotaro\EnumataRecorder\Models\StateLogs;
+use Norotaro\EnumataRecorder\Models\StateLog;
 use UnitEnum;
 
 trait LogTransitions
@@ -20,7 +20,7 @@ trait LogTransitions
 
     public function stateLogs(string $field = null): MorphMany
     {
-        $query = $this->morphMany(StateLogs::class, 'model');
+        $query = $this->morphMany(StateLog::class, 'model');
 
         if ($field) {
             $query->forField($field);

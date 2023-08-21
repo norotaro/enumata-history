@@ -57,23 +57,23 @@ The stateLogs() method returns an Eloquent relationship that can be chained as a
 
 ```php
 $order->stateLogs()
-    ->from(OrderStatus::Pending)
-    ->to(OrderStatus::Approved)
+    ->fromState(OrderStatus::Pending)
+    ->toState(OrderStatus::Approved)
     ->where('created_at', '<', Carbon::yesterday())
     ->get();
 ```
 
 ## Scopes
 
-### `from($state)`
+### `fromState($state)`
 
 ```php
-$order->stateLogs()->from(OrderStatus::Pending)->get();
+$order->stateLogs()->fromState(OrderStatus::Pending)->get();
 ```
-### `to($state)`
+### `toState($state)`
 
 ```php
-$order->stateLogs()->to(OrderStatus::Approved)->get();
+$order->stateLogs()->toState(OrderStatus::Approved)->get();
 ```
 ### `forField($field)`
 
