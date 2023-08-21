@@ -30,8 +30,18 @@
     "test": "./vendor/bin/pest"
   },
   "config": {
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "optimize-autoloader": true,
     "allow-plugins": {
       "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Norotaro\\EnumataRecorder\\Providers\\PackageServiceProvider"
+      ]
     }
   }
 }
